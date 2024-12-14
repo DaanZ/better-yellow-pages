@@ -1,7 +1,5 @@
 import streamlit as st
 from handwriting_synthesis.hand import Hand
-import cairosvg
-from io import BytesIO
 
 
 # Streamlit interface
@@ -50,11 +48,10 @@ def main():
 
     if st.session_state.generated:
         handwritten_image.image(st.session_state.generated, caption="Generated Handwriting", width=600)
-        cairosvg.svg2png(url=st.session_state.generated, write_to=st.session_state.generated.replace(".svg", ".png"))
         st.download_button(
             label="Download as Image",
             data=st.session_state.generated,
-            file_name="handwriting.png",
+            file_name="handwriting.svg",
             mime="image/png"
         )
 

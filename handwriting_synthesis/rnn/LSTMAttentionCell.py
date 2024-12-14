@@ -4,9 +4,11 @@ import numpy as np
 import tensorflow as tf
 import tensorflow.compat.v1 as tfcompat
 import tensorflow.compat.v1.distributions as tfd
+import warnings
 import tensorflow_probability as tfp
 
 from handwriting_synthesis.tf.utils import dense_layer, shape
+warnings.filterwarnings("ignore", category=UserWarning)
 
 tfcompat.disable_v2_behavior()
 

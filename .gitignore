@@ -11,3 +11,5 @@ venv
 img
 __pycache__
 /_main.py
+usage_demo.png
+usage_demo.svg

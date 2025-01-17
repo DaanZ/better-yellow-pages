@@ -1,4 +1,7 @@
 import streamlit as st
+
+from demo.cleaned import clean_svg_background
+from demo.overlay import convert_pages
 from handwriting_synthesis.hand import Hand
 
 
@@ -23,15 +26,15 @@ def main():
             lines = user_text.strip().split("\n")
 
             # Define parameters
-            biases = [0.75 for _ in lines]
+            biases = [1.0 for _ in lines]
             styles = [line_style for _ in lines]
             stroke_colors = ['black' for _ in lines]
-            stroke_widths = [1.5 for _ in lines]
+            stroke_widths = [1.0 for _ in lines]
 
             with st.spinner("Generating handwriting..."):
                 # Create handwriting SVG
                 hand = Hand()
-                svg_output = 'usage_demo.svg'
+                svg_output = 'overlay.svg'
                 hand.write(
                     filename=svg_output,
                     lines=lines,
@@ -40,7 +43,10 @@ def main():
                     stroke_colors=stroke_colors,
                     stroke_widths=stroke_widths
                 )
-                st.session_state.generated = svg_output
+
+                png_output = clean_svg_background(svg_output)
+                result = convert_pages(png_output, "result.png")
+                st.session_state.generated = result
         else:
             st.warning("Please enter some text before generating handwriting.")
 
